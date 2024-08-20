@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    
+    <!-- AR.js -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+    <!-- カスタムスクリプト -->
+    <script src="scripts/transform-controls.js"></script>
+    <script src="scripts/photo-capture.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+    <!-- A-Frameシーンの定義 -->
+    <a-scene
+        embedded
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    >
+        <!-- アセットの読み込み -->
+        <a-assets>
+            <a-asset-item id="animated-model" src="assets/BlueCube.glb"></a-asset-item>
+        </a-assets>
+
+        <!-- カスタムマーカーの定義 -->
+        <a-marker 
+            type="pattern" 
+            url="assets/marker.patt"
+        >
+            <a-entity 
+                id="model"
+                gltf-model="#animated-model" 
+                scale="0.5 0.5 0.5" 
+                position="0 0 0"
+                transform-controls
+            ></a-entity>
+        </a-marker>
+
+        <!-- カメラ -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- 写真撮影ボタン -->
+    <button id="captureButton" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; padding: 10px 20px; font-size: 16px;">写真撮影</button>
+</body>
+</html>
